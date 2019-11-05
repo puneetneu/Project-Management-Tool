@@ -16,7 +16,7 @@ public class Project {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotBlank(message = "Project name is required")
-    private String project_name;
+    private String projectName;
     @NotBlank(message = "Project Identifier is required")
     @Size(min = 4, max = 5, message = "Please use 4 to 5 characters")
     @Column(updatable = false, unique = true)
@@ -45,12 +45,12 @@ public class Project {
         this.id = id;
     }
 
-    public String getProject_name() {
-        return project_name;
+    public String getProjectName() {
+        return projectName;
     }
 
-    public void setProject_name(String project_name) {
-        this.project_name = project_name;
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
 
     public String getProjectIdentifier() {
