@@ -3,6 +3,8 @@ package com.pun.tan.pmtool.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Backlog {
@@ -14,10 +16,15 @@ public class Backlog {
     private Integer PTsequence =0;
     private String projectIdentifier;
 
+    //one to one with project
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "project_id", nullable = false)
     @JsonIgnore
     private Project project;
+
+    //one to many project task
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "backlog")
+    private List<ProjectTask> projectstaks= new ArrayList<ProjectTask>();
 
 
     public Backlog() {
@@ -55,4 +62,14 @@ public class Backlog {
     public void setProject(Project project) {
         this.project = project;
     }
+
+    public List<ProjectTask> getProjectstaks() {
+        return projectstaks;
+    }
+
+    public void setProjectstaks(List<ProjectTask> projectstaks) {
+        this.projectstaks = projectstaks;
+    }
+
+
 }
