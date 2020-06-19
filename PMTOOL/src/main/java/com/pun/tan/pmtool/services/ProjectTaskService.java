@@ -12,10 +12,10 @@ public class ProjectTaskService {
 
 
     @Autowired
-    BacklogRepository backlogRepository;
+    private BacklogRepository backlogRepository;
 
     @Autowired
-    ProjectTaskRepository projectTaskRepository;
+    private ProjectTaskRepository projectTaskRepository;
 
     public ProjectTask addProjectTask(String projectidentifier, ProjectTask projectTask){
 
@@ -36,5 +36,10 @@ public class ProjectTaskService {
         }
 
         return projectTaskRepository.save(projectTask);
+    }
+
+    public  Iterable<ProjectTask> findBackLogById (String id){
+
+        return projectTaskRepository.findByProjectIdentifierOrderByPriority(id);
     }
 }
