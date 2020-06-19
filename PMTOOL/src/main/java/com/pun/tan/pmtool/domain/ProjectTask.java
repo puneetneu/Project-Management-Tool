@@ -1,5 +1,7 @@
 package com.pun.tan.pmtool.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
@@ -20,6 +22,10 @@ public class ProjectTask {
     private Date dueDate;
 
     //ManyToOne with Backlog
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+    @JoinColumn(name = "backlog_id", nullable = false, updatable = false)
+    @JsonIgnore
+    private ProjectTask projectTask;
 
     @Column(updatable = false)
     private String projectIdentifier;
@@ -118,6 +124,15 @@ public class ProjectTask {
 
     public void setUpdate_At(Date update_At) {
         this.update_At = update_At;
+    }
+
+
+    public ProjectTask getProjectTask() {
+        return projectTask;
+    }
+
+    public void setProjectTask(ProjectTask projectTask) {
+        this.projectTask = projectTask;
     }
 
     @Override
