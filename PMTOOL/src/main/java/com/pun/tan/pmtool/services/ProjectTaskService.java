@@ -89,12 +89,6 @@ public class ProjectTaskService {
 
         ProjectTask projectTask = findByPTByProjectSequence(backlog_id, pt_id);
 
-        Backlog backlog = projectTask.getBacklog();
-        List<ProjectTask> projectTaskList = backlog.getProjectstaks();
-        projectTaskList.remove(projectTask);
-
-        backlogRepository.save(backlog);
-
         projectTaskRepository.delete(projectTask);
 
     }

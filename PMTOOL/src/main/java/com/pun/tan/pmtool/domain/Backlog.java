@@ -23,7 +23,7 @@ public class Backlog {
     private Project project;
 
     //one to many project task
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "backlog")
+    @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, mappedBy = "backlog" , orphanRemoval = true)
     private List<ProjectTask> projectstaks= new ArrayList<ProjectTask>();
 
 
