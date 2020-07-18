@@ -22,7 +22,7 @@ import {
                 }
             case DELETE_PROJECT_TASK:
                 return {
-                    ...state,
+                    ...state
                 }    
             default:
                 return state;    
