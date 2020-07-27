@@ -2,7 +2,7 @@ package com.pun.tan.pmtool.security;
 
 public class SecurityConstants {
 
-    public static  final String SIGN_UP_URLS = "/api/usres/**";
+    public static  final String SIGN_UP_URLS = "/api/users/**";
     public static  final String H2_URL = "h2-console/**";
     public static  final String SECRET = "SecretKeyToGenJWTs";
     public static  final String TOKEN_PREFIX = "Bearer ";
