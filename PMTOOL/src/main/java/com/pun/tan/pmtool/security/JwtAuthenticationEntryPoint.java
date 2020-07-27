@@ -23,6 +23,6 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
         httpServletResponse.setContentType("application/json");
         httpServletResponse.setStatus(401);
-        httpServletResponse.getWriter().println(invalidLoginResponse);
+        httpServletResponse.getWriter().print(jsonLoginResponse);
     }
 }
