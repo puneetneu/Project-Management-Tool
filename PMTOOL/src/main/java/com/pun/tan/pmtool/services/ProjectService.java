@@ -2,9 +2,11 @@ package com.pun.tan.pmtool.services;
 
 import com.pun.tan.pmtool.domain.Backlog;
 import com.pun.tan.pmtool.domain.Project;
+import com.pun.tan.pmtool.domain.User;
 import com.pun.tan.pmtool.exceptions.ProjectIdException;
 import com.pun.tan.pmtool.repositories.BacklogRepository;
 import com.pun.tan.pmtool.repositories.ProjectRepository;
+import com.pun.tan.pmtool.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +19,16 @@ public class ProjectService {
     @Autowired
     private BacklogRepository backlogRepository;
 
-    public Project saveOrUpdateProject(Project project) {
+    @Autowired
+    private UserRepository userRepository;
+
+    public Project saveOrUpdateProject(Project project, String username) {
        try{
+
+           User user =userRepository.findByUsername(username);
+           project.setUser(user);
+           project.setProjectLeader(user.getUsername());
+
            project.setProjectIdentifier(project.getProjectIdentifier().toUpperCase());
 
            if(project.getId()==null){
