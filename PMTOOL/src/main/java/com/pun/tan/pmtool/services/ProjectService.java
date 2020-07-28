@@ -52,29 +52,28 @@ public class ProjectService {
 
     }
 
-    public Project findByProjectIdentifier(String projectId){
+    public Project findByProjectIdentifier(String projectId, String username){
 
         Project project= projectRepository.findByProjectIdentifier(projectId.toUpperCase());
         if(project == null){
             throw new ProjectIdException("Project Id - "+ projectId+ " does not exist"  );
         }
 
+
+        if(!project.getProjectLeader().equals(username)){
+            throw new ProjectIdException("Project not found in your account");
+        }
+
         return project;
     }
 
-    public Iterable<Project> findAllProject(){
-        return projectRepository.findAll();
+    public Iterable<Project> findAllProject(String username){
+        return projectRepository.findAllByProjectLeader(username);
     }
 
 
-    public void  deleteProjectByIdentifier(String projectId){
-        Project project = projectRepository.findByProjectIdentifier(projectId.toUpperCase());
-
-        if(project == null){
-            throw new ProjectIdException("Project Id - "+ projectId+ " does not exist"  );
-        }
-
-        projectRepository.delete(project);
+    public void  deleteProjectByIdentifier(String projectId, String username){
+        projectRepository.delete(findByProjectIdentifier(projectId,username));
 
     }
 
