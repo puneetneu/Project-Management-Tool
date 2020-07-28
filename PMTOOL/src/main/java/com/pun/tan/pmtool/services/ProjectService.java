@@ -4,6 +4,7 @@ import com.pun.tan.pmtool.domain.Backlog;
 import com.pun.tan.pmtool.domain.Project;
 import com.pun.tan.pmtool.domain.User;
 import com.pun.tan.pmtool.exceptions.ProjectIdException;
+import com.pun.tan.pmtool.exceptions.ProjectNotFoundException;
 import com.pun.tan.pmtool.repositories.BacklogRepository;
 import com.pun.tan.pmtool.repositories.ProjectRepository;
 import com.pun.tan.pmtool.repositories.UserRepository;
@@ -23,7 +24,19 @@ public class ProjectService {
     private UserRepository userRepository;
 
     public Project saveOrUpdateProject(Project project, String username) {
-       try{
+
+
+        if(project.getId()!=null){
+            Project existingProject = projectRepository.findByProjectIdentifier(project.getProjectIdentifier());
+            if(existingProject != null && (!existingProject.getProjectLeader().equals(username))){
+                throw new ProjectNotFoundException("Project not found in your account");
+            }else if(existingProject==null)
+                throw  new ProjectNotFoundException("Project with ID : " + project.getProjectIdentifier() + "does not exist");
+        }
+
+
+
+        try{
 
            User user =userRepository.findByUsername(username);
            project.setUser(user);
